@@ -1,0 +1,20 @@
+<html>
+<head>
+   <title>Full Cycle Rocks</title>
+</head>
+<body>
+  <h1>Full Cycle Rocks!</h1>
+  <ul>
+    <%
+      for(var i=0; i<users.length; i++) {%>
+        <li>
+          <%= users[i].name %>
+        </li>
+    <% } %>
+  </ul>
+  <form action="/" method="post">
+    <input type="text" name="username" placeholder="Enter username" required>
+    <input type="submit" value="Add User">
+  </form>
+</body>
+</html>
