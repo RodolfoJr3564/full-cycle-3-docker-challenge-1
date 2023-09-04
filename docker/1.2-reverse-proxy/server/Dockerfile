@@ -13,6 +13,7 @@ COPY ./default.conf ./conf.d
 
 COPY --from=builder /wait-for /usr/bin/wait-for
 
+
 RUN apt update && \
   apt install -y netcat-traditional && \
   rm -rf /var/lib/apt/lists/*
