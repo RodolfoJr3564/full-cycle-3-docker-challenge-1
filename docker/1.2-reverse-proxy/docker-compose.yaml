@@ -15,9 +15,9 @@ services:
   app:
     build:
       context: ./app
-      dockerfile: Dockerfile.prod
     container_name: app
-    entrypoint: wait-for mysql:3306 -t 30 -- npm run start
+    volumes:
+      - ./app:/usr/src/app
     depends_on:
       - mysql
     restart: always
@@ -37,7 +37,6 @@ services:
   web_server:
     build:
       context: ./server
-    command: ["wait-for", "app:3000", "-t", "30", "--", "nginx", "-g", "daemon off;"]
     depends_on:
       - app
     container_name: web_server
