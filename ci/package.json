@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "test:cov": "npx jest --coverage"
   },
   "keywords": [],
   "author": "",
