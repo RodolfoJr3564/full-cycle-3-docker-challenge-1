@@ -1,5 +1,5 @@
-const { operations } = require("./src/math-operations");
-const { questionAsync, createRlInterface } = require("./src/io-scan");
+const { operations } = require("./math-operations");
+const { questionAsync, createRlInterface } = require("./io-scan");
 
 (async () => {
   const readline = createRlInterface(process.stdin, process.stdout);
