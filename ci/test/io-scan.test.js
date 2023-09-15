@@ -1,5 +1,3 @@
-const { describe, it } = require("node:test");
-const assert = require("node:assert");
 const { Readable } = require("stream");
 const { createRlInterface, questionAsync } = require("../src/io-scan");
 
@@ -15,7 +13,8 @@ describe("questionAsync tests", () => {
     const rl = createRlInterface(mockInput, process.stdout);
     const answer = await questionAsync(rl, "Enter some data: ");
 
-    assert.strictEqual(answer, "test answer");
+    expect(answer).toBe("test answer");
+
     rl.close();
   });
 });

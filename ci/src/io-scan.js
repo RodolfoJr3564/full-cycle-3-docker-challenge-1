@@ -1,4 +1,3 @@
-// input-output.js
 const readline = require("readline");
 
 const createRlInterface = (input, output) => {
