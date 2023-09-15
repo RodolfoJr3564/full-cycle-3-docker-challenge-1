@@ -22,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: ci/
+          projectBaseDir: ./ci/
 
   test:
     name: Test
@@ -35,6 +35,3 @@ jobs:
           node-version: 18
       - name: Run tests
         run: node --test
-        with:
-          projectBaseDir: ci/test/
-
