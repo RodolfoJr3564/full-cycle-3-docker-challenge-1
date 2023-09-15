@@ -4,7 +4,7 @@ on:
     branches:
       - develop
     paths:
-          - './ci'
+          - 'ci/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -27,6 +27,10 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./ci
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
@@ -34,6 +38,6 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: cd ci && npm install
+        run: npm install
       - name: Test and coverage
         run: npm run test:cov
