@@ -24,4 +24,24 @@ describe("prompt function", () => {
     consoleLog.mockRestore();
     consoleError.mockRestore();
   });
+
+  it("should handle errors gracefully", async () => {
+    questionAsync.mockRejectedValue(new Error());
+
+    const consoleLog = jest.spyOn(console, "log").mockImplementation();
+    const consoleError = jest.spyOn(console, "error").mockImplementation();
+
+    const mockReadline = {};
+
+    await prompt(mockReadline);
+
+    expect(consoleLog).not.toHaveBeenCalled();
+    expect(consoleError).toHaveBeenCalledWith(
+      "Erro ao calcular:",
+      expect.any(Error)
+    );
+
+    consoleLog.mockRestore();
+    consoleError.mockRestore();
+  });
 });
