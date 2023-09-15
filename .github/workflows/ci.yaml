@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage
-          path: ./ci/coverage/lcov.info
+          path: ./ci/coverage
   sonarcloud:
     name: SonarCloud
     needs: test
@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: coverage
-          path: ./ci/coverage/lcov.info
+          path: ./ci/coverage
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
