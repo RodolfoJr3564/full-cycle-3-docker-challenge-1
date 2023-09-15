@@ -1,0 +1,17 @@
+{
+  "name": "ci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/main.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "npx jest",
+    "test:cov": "npx jest --coverage",
+    "start": "node ./src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
