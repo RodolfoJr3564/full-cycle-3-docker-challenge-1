@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - develop
+    paths:
+          - './ci'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
@@ -19,6 +21,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: ci/
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -30,3 +35,6 @@ jobs:
           node-version: 18
       - name: Run tests
         run: node --test
+        with:
+          projectBaseDir: ci/test/
+
