@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "npx jest",
-    "test:cov": "npx jest --coverage"
+    "test:cov": "npx jest --coverage",
+    "start": "node ./src/main.js"
   },
   "keywords": [],
   "author": "",
