@@ -7,7 +7,7 @@ Este repositório contém os desafios propostos durante o curso Full Cycle.
 1. [Docker](#docker)
    - [1.1 Go Lang e Docker](#11---go-lang-e-docker)
    - [1.2 Nginx como Proxy Reverso e Node.js](#12---nginx-como-proxy-reverso-e-nodejs)
-2. [CI e SonarCloud](#2---ci-e-sonarcloud)
+2. [CI e SonarCloud](#ci-e-sonarcloud)
 
 ## Docker
 
@@ -55,7 +55,7 @@ O app deve estar rodando em:
 
 - [Localhost:8080](http://localhost:8080/)
 
-### 2 - CI e SonarCloud
+## CI e SonarCloud
 
 Nesse desafio, iremos consolidar os conhecimentos em relação a criação de uma pipeline de CI, utilizando o Github actions e também a utilização do SonarCloud para analisar a qualidade do código.
 
