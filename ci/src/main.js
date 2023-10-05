@@ -1,8 +1,14 @@
-const readline = require("./io-scan").createRlInterface(
-  process.stdin,
-  process.stdout
-);
+const ioScan = require("./io-scan");
+const { prompt } = require("./prompt");
 
-require("./prompt").prompt();
+function exec() {
+  const readline = ioScan.createRlInterface(process.stdin, process.stdout);
 
-readline.close();
+  prompt(readline);
+
+  readline.close();
+}
+
+exec();
+
+module.exports = { exec };
