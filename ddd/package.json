@@ -11,6 +11,7 @@
   },
   "scripts": {
     "test": "npm run tsc -- --noEmit && jest",
+    "test:cov": "npm run tsc -- --noEmit && jest --coverage",
     "tsc": "tsc"
   },
   "dependencies": {

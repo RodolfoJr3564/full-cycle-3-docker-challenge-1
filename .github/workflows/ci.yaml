@@ -5,16 +5,21 @@ on:
       - develop
     paths:
           - 'ci/**'
+          - 'ddd/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
   test:
-    name: Test
+    name: Test ${{ matrix.challengePath }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        challengePath: [ci, ddd]
+        sonarCheck: [ci]
     defaults:
       run:
         shell: bash
-        working-directory: ./ci
+        working-directory: ./${{ matrix.challengePath }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
@@ -23,13 +28,17 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: npm install
-      - name: Test and coverage
+      - name: Test
+        run: npm run test
+      - name: Coverage
+        if: ${{ contains(matrix.sonarCheck, matrix.challengePath) }}
         run: npm run test:cov
       - name: Upload coverage
+        if: ${{ contains(matrix.sonarCheck, matrix.challengePath) }}
         uses: actions/upload-artifact@v2
         with:
           name: coverage
-          path: ./ci/coverage
+          path: ./${{ matrix.challengePath }}/coverage
   sonarcloud:
     name: SonarCloud
     needs: test
