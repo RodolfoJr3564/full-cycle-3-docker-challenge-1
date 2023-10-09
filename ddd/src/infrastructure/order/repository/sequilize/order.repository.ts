@@ -30,10 +30,47 @@ export default class OrderRepository implements OrderRepositoryInterface {
       include: [{ model: OrderItemModel }],
     });
 
+    return this.orderEntityOf(orderModel);
+  }
+
+  async findAll(): Promise<Order[]> {
+    const orderModels = await OrderModel.findAll({
+      include: [{ model: OrderItemModel }],
+    });
+
+    return orderModels.map(this.orderEntityOf);
+  }
+
+  async update(entity: Order): Promise<void> {
+    const orderModel = await OrderModel.findByPk(entity.id, {
+      include: [{ model: OrderItemModel }],
+    });
+
+    Promise.all(
+      entity.items.map((item) => {
+        const orderItem = orderModel.items.find(({ id }) => id === item.id);
+
+        orderItem.set({
+          quantity: item.quantity,
+        });
+
+        orderItem.save();
+      })
+    );
+
+    await orderModel.update({
+      total: entity.total(),
+    });
+
+    await orderModel.save();
+  }
+
+  private orderEntityOf(orderModel: OrderModel): Order {
+    const items = orderModel?.items || [];
     return new Order(
       orderModel.id,
       orderModel.customer_id,
-      orderModel.items.map(
+      items.map(
         (item) =>
           new OrderItem(
             item.id,
@@ -44,33 +81,5 @@ export default class OrderRepository implements OrderRepositoryInterface {
           )
       )
     );
-  }
-
-  async findAll(): Promise<Order[]> {
-    const orderModels = await OrderModel.findAll({
-      include: [{ model: OrderItemModel }],
-    });
-
-    return orderModels.map(
-      (orderModel) =>
-        new Order(
-          orderModel.id,
-          orderModel.customer_id,
-          orderModel.items.map(
-            (item) =>
-              new OrderItem(
-                item.id,
-                item.name,
-                item.price,
-                item.product_id,
-                item.quantity
-              )
-          )
-        )
-    );
-  }
-
-  update(entity: Order): Promise<void> {
-    throw new Error("Method not implemented.");
   }
 }

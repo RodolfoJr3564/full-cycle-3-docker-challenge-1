@@ -143,4 +143,47 @@ describe("Order repository test", () => {
 
     expect(ordersFound).toStrictEqual([order]);
   });
+
+  it("should update an order", async () => {
+    const customerRepository = new CustomerRepository();
+    const customer = new Customer("123", "Customer 1");
+
+    const address = new Address("Street 1", 1, "Zipcode 1", "City 1");
+    customer.changeAddress(address);
+
+    await customerRepository.create(customer);
+
+    const productRepository = new ProductRepository();
+    const product = new Product("123", "Product 1", 10);
+    await productRepository.create(product);
+
+    const orderItem = new OrderItem(
+      "1",
+      product.name,
+      product.price,
+      product.id,
+      2
+    );
+
+    const order = new Order("123", "123", [orderItem]);
+
+    const orderRepository = new OrderRepository();
+    await orderRepository.create(order);
+
+    const orderItemUpdated = new OrderItem(
+      "1",
+      product.name,
+      product.price,
+      product.id,
+      3
+    );
+
+    const orderUpdated = new Order("123", "123", [orderItemUpdated]);
+
+    await orderRepository.update(orderUpdated);
+
+    const orderFound = await orderRepository.find(orderUpdated.id);
+
+    expect(orderFound).toStrictEqual(orderUpdated);
+  });
 });
