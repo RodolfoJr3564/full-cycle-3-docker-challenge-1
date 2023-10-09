@@ -15,6 +15,7 @@ jobs:
     strategy:
       matrix:
         challengePath: [ci, ddd]
+        sonarCheck: [ci]
     defaults:
       run:
         shell: bash
@@ -27,9 +28,13 @@ jobs:
           node-version: 18
       - name: Install dependencies
         run: npm install
-      - name: Test and coverage
+      - name: Test
+        run: npm run test
+      - name: Coverage
+        if: ${{ contains(matrix.sonarCheck, matrix.challengePath) }}
         run: npm run test:cov
       - name: Upload coverage
+        if: ${{ contains(matrix.sonarCheck, matrix.challengePath) }}
         uses: actions/upload-artifact@v2
         with:
           name: coverage
