@@ -5,16 +5,20 @@ on:
       - develop
     paths:
           - 'ci/**'
+          - 'ddd/**'
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        challengePath: [ci, ddd]
     defaults:
       run:
         shell: bash
-        working-directory: ./ci
+        working-directory: ./${{ matrix.challengePath }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node.js
@@ -29,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage
-          path: ./ci/coverage
+          path: ./${{ matrix.challengePath }}/coverage
   sonarcloud:
     name: SonarCloud
     needs: test
