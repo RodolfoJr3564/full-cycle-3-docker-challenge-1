@@ -10,7 +10,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   test:
-    name: Test
+    name: Test ${{ matrix.challengePath }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
