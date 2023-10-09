@@ -8,6 +8,8 @@ Este repositório contém os desafios propostos durante o curso Full Cycle.
    - [1.1 Go Lang e Docker](#11---go-lang-e-docker)
    - [1.2 Nginx como Proxy Reverso e Node.js](#12---nginx-como-proxy-reverso-e-nodejs)
 2. [CI e SonarCloud](#ci-e-sonarcloud)
+3. [DDD Patterns](#ddd-patterns)
+   - [3.1 - Métodos de OrderRepository](#31---métodos-de-orderrepository)
 
 ## Docker
 
@@ -62,3 +64,15 @@ Nesse desafio, iremos consolidar os conhecimentos em relação a criação de um
 #### Validação
 
 - [Pull Request](https://github.com/RodolfoJr3564/full-cycle-3.0/pull/11)
+
+## DDD Patterns
+
+### 3.1 - Métodos de OrderRepository
+
+Nesse desafio você deverá fazer com que a classe OrderRepository implemente totalmente os métodos definidos pelo OrderRepositoryInterface. Toda essa implementação deverá ser reproduzida através de testes.
+
+#### Validação
+
+```bash
+cd ddd && npm run test
+```
