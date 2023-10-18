@@ -22,9 +22,9 @@ jobs:
         shell: bash
         working-directory: ./${{ matrix.challengePath }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: 16
       - name: Install dependencies
@@ -36,23 +36,22 @@ jobs:
         run: npm run test:cov
       - name: Upload coverage
         if: ${{ contains(matrix.sonarCheck, matrix.challengePath) }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: coverage
           path: ./${{ matrix.challengePath }}/coverage
 
   sonarcloud:
     name: SonarCloud
-    if: ${{ needs.test.outputs.sonarCheck == 'ci' }}
     needs: test
     environment: development
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Download coverage
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: coverage
           path: ./ci/coverage
