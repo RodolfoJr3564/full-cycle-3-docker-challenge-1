@@ -9,7 +9,6 @@ on:
       - 'ddd/**'
   pull_request:
     types: [opened, synchronize, reopened]
-
 jobs:
   test:
     name: Test ${{ matrix.challengePath }}
@@ -23,9 +22,9 @@ jobs:
         shell: bash
         working-directory: ./${{ matrix.challengePath }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: Install dependencies
@@ -37,7 +36,7 @@ jobs:
         run: npm run test:cov
       - name: Upload coverage
         if: ${{ contains(matrix.sonarCheck, matrix.challengePath) }}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: coverage
           path: ./${{ matrix.challengePath }}/coverage
@@ -49,11 +48,11 @@ jobs:
     environment: development
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Download coverage
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: coverage
           path: ./ci/coverage
