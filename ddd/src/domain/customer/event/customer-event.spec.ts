@@ -61,7 +61,9 @@ describe("Customer events tests", () => {
   it("should be able to trigger an event when the customer address changes", () => {
     const eventHandler = new CustomerAddressChangedEventHandler();
     const customer = new Customer("2", "Customer 2");
-    customer.Address = new Address("Street 1", 123, "13330-250", "São Paulo");
+    customer.changeAddress(
+      new Address("Street 1", 123, "13330-250", "São Paulo")
+    );
 
     const customerAddressChangedEvent = new CustomerAddressChangedEvent(
       customer
