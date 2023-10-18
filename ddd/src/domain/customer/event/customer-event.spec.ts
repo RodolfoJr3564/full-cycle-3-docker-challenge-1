@@ -1,6 +1,9 @@
 import EventDispatcher from "../../@shared/event/event-dispatcher";
 import Customer from "../entity/customer";
+import Address from "../value-object/address";
+import CustomerAddressChangedEvent from "./customer-address-changed.event";
 import CustomerCreatedEvent from "./customer-created.event";
+import CustomerAddressChangedEventHandler from "./handler/customer-address-changed-event.handler";
 import Log1CustomerCreationEventHandler from "./handler/log1-customer-creation-event.handler";
 import Log2CustomerCreationEventHandler from "./handler/log2-customer-creation-event.handler";
 
@@ -53,5 +56,25 @@ describe("Customer events tests", () => {
     expect(consoleSpy).toHaveBeenCalledWith(
       "Esse é o segundo console.log do evento: CustomerCreated"
     );
+  });
+
+  it("should be able to trigger an event when the customer address changes", () => {
+    const eventHandler = new CustomerAddressChangedEventHandler();
+    const customer = new Customer("2", "Customer 2");
+    customer.Address = new Address("Street 1", 123, "13330-250", "São Paulo");
+
+    const customerAddressChangedEvent = new CustomerAddressChangedEvent(
+      customer
+    );
+
+    const consoleSpy = jest.spyOn(console, "log");
+
+    eventHandler.handle(customerAddressChangedEvent);
+
+    const expectedMessage = `Endereço do cliente: ${customer.id}, ${
+      customer.name
+    } alterado para: ${customer.Address.toString()}`;
+
+    expect(consoleSpy).toHaveBeenCalledWith(expectedMessage);
   });
 });
